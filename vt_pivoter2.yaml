@@ -1,0 +1,50 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'VTpivot - Deploys a lambda function to pivot from known IOCs to discover more.'
+Transform: 'AWS::Serverless-2016-10-31'
+Resources:
+  getMISPParametersTest:
+    DependsOn: LambdaServiceRole3
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          Sid: "VisualEditor0"
+          Effect: Allow
+          Action: ssm:GetParameter
+          Resource: arn:aws:ssm:us-east-1:384310425511:parameter/MISP/*
+      PolicyName: getMISPParametersTest
+      Roles: 
+        - !Ref LambdaServiceRole3
+  LambdaServiceRole3:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+            - lambda.amazonaws.com
+            - ec2.amazonaws.com
+          Action: sts:AssumeRole
+      ManagedPolicyArns:
+      - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      - arn:aws:iam::aws:policy/EC2InstanceConnect
+      Path: "/service-role/"
+      RoleName: LambdaServiceRole3
+  vtpivoter:
+    DependsOn: LambdaServiceRole3
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: VTHunt.lambda_handler
+      Runtime: python3.7
+      CodeUri: s3://joshatestbucket/VTpivot.zip
+      Description: ''
+      MemorySize: 128
+      Timeout: 600
+      Role: 'arn:aws:iam::384310425511:role/service-role/LambdaServiceRole3'
+      Events:
+        Schedule1:
+          Type: Schedule
+          Properties:
+            Schedule: 'cron(0 6,7,8,9,10 * * ? *)'
