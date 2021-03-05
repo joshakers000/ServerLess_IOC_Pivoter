@@ -1,3 +1,6 @@
+# Author: Josh Akers
+# Date: 10/6/2020
+# Purpose: Obtain new IOCs and store within MISP database based on current IOCs found using VirusTotal's paid API feauture.  
 
 import os
 import vt
