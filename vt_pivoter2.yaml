@@ -11,7 +11,7 @@ Resources:
           Sid: "VisualEditor0"
           Effect: Allow
           Action: ssm:GetParameter
-          Resource: arn:aws:ssm:us-east-1:384310425511:parameter/MISP/*
+          Resource: arn:aws:ssm:us-east-1:<account-id>:parameter/MISP/*
       PolicyName: getMISPParametersTest
       Roles: 
         - !Ref LambdaServiceRole3
@@ -38,11 +38,11 @@ Resources:
     Properties:
       Handler: VTHunt.lambda_handler
       Runtime: python3.7
-      CodeUri: s3://joshatestbucket/VTpivot.zip
+      CodeUri: s3://<bucketname>/VTpivot.zip
       Description: ''
       MemorySize: 128
       Timeout: 600
-      Role: 'arn:aws:iam::384310425511:role/service-role/LambdaServiceRole3'
+      Role: 'arn:aws:iam::<account-id>:role/service-role/LambdaServiceRole3'
       Events:
         Schedule1:
           Type: Schedule
