@@ -10,6 +10,6 @@ Account-IDs and bucketnames have been removed.
 
 - MISP Database
 - API keys stored within SSM
-- - MISP
-- - VirusTotal
+  - MISP
+  - VirusTotal
 
