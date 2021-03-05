@@ -13,3 +13,5 @@ Account-IDs and bucketnames have been removed.
   - MISP
   - VirusTotal
 
+- S3 Bucket containing zipped code.
+  - deployment.zip
