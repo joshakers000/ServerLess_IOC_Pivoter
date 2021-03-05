@@ -6,3 +6,10 @@ Makefile is not included as this is meant to pull a zipfile with all code from S
 
 Account-IDs and bucketnames have been removed.  
 
+# Requirements
+
+- MISP Database
+- API keys stored within SSM
+- - MISP
+- - VirusTotal
+
